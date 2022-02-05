@@ -1,5 +1,6 @@
 cff-version: 1.2.0
-message: "Please cite this software using the metadata from 'preferred-citation'."
+message: >-
+  Please cite this software using the metadata from 'preferred-citation'.
 authors:
 - family-names: "Levonian"
   given-names: "Zachary"
@@ -24,9 +25,9 @@ preferred-citation:
     orcid: "https://orcid.org/0000-0003-0552-5773"
   doi: "10.1145/3490099.3511134"
   conference:
-      name: "27th International Conference on Intelligent User Interfaces (IUI '22)"
-      date-start: "2022-03-22"
-      date-end: "2022-03-25"
+    name: "27th International Conference on Intelligent User Interfaces (IUI '22)"
+    date-start: "2022-03-22"
+    date-end: "2022-03-25"
   month: 3
   title: "Trade-offs in Sampling and Search for Early-stage Interactive Text Classification"
   year: 2022
