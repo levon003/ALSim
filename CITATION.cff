@@ -26,6 +26,8 @@ preferred-citation:
   doi: "10.1145/3490099.3511134"
   conference:
     name: "27th International Conference on Intelligent User Interfaces (IUI '22)"
+    date-start: "2022-03-22"
+    date-end: "2022-03-25"
   collection-title: "Proceedings of the 27th International Conference on Intelligent User Interfaces (IUI '22)"
   month: 3
   title: "Trade-offs in Sampling and Search for Early-stage Interactive Text Classification"
