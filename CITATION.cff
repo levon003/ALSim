@@ -11,7 +11,7 @@ license: MIT
 date-released: 2022-02-05
 url: "https://github.com/levon003/ALSim"
 preferred-citation:
-  type: conference-paper
+  type: generic
   authors:
   - family-names: "Levonian"
     given-names: "Zachary"
