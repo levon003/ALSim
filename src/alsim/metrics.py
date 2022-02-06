@@ -1,4 +1,3 @@
-
 import numpy as np
 import sklearn
 import sklearn.metrics
@@ -11,46 +10,48 @@ def compute_metrics(y_true, y_pred, y_pred_proba, compute_or=False):
     true_pos_pct = np.sum(y_true) / len(y_true)
     pred_pos_pct = np.sum(y_pred) / len(y_pred)
     pos_pct_difference = pred_pos_pct - true_pos_pct
-    precision, recall, f1, _ = sklearn.metrics.precision_recall_fscore_support(y_true, y_pred, average='binary', zero_division=0)
+    precision, recall, f1, _ = sklearn.metrics.precision_recall_fscore_support(
+        y_true, y_pred, average="binary", zero_division=0
+    )
     accuracy = sklearn.metrics.accuracy_score(y_true, y_pred)
-    cmat = sklearn.metrics.confusion_matrix(y_true, y_pred, labels=(0,1))
+    cmat = sklearn.metrics.confusion_matrix(y_true, y_pred, labels=(0, 1))
     tn, fp, fn, tp = cmat.ravel()
-    
+
     if true_pos_pct == 0.0 or true_pos_pct == 1.0:
         ap = 0.0
         roc_auc = 0.0
     else:  # at least one true instance of each class
         ap = sklearn.metrics.average_precision_score(y_true, y_pred_proba)
         roc_auc = sklearn.metrics.roc_auc_score(y_true, y_pred_proba)
-    
+
     metrics_dict = {
-        'n': len(y_true),
-        'true_pos_count': np.sum(y_true),
-        'pred_pos_count': np.sum(y_pred),
-        'true_pos_pct': true_pos_pct,
-        'pred_pos_pct': pred_pos_pct,
-        'pos_pct_difference': pos_pct_difference,
-        'precision': precision,
-        'recall': recall,
-        'f1': f1,
-        'ap': ap,
-        'roc_auc': roc_auc,
-        'accuracy': accuracy,
-        'true_positive': tp,
-        'true_negative': tn,
-        'false_positive': fp,
-        'false_negative': fn,
+        "n": len(y_true),
+        "true_pos_count": np.sum(y_true),
+        "pred_pos_count": np.sum(y_pred),
+        "true_pos_pct": true_pos_pct,
+        "pred_pos_pct": pred_pos_pct,
+        "pos_pct_difference": pos_pct_difference,
+        "precision": precision,
+        "recall": recall,
+        "f1": f1,
+        "ap": ap,
+        "roc_auc": roc_auc,
+        "accuracy": accuracy,
+        "true_positive": tp,
+        "true_negative": tn,
+        "false_positive": fp,
+        "false_negative": fn,
     }
     if compute_or:
         if fp == 0 or tn == 0:
             odds_ratio = 0.0
         else:
             odds_ratio = (tp / fp) / (fn / tn)
-        metrics_dict['odds_ratio'] = odds_ratio
+        metrics_dict["odds_ratio"] = odds_ratio
     return metrics_dict
 
 
-def combine_model_metrics(model_metrics_list, ignore_list=['model_ind', 'n']):
+def combine_model_metrics(model_metrics_list, ignore_list=["model_ind", "n"]):
     assert len(model_metrics_list) > 0
     keys = model_metrics_list[0].keys()
     combined_metrics = {}
@@ -68,7 +69,7 @@ def combine_model_metrics(model_metrics_list, ignore_list=['model_ind', 'n']):
 def combine_run_metrics(run_metrics_list):
     """
     Mean pool the available metric values (and store the standard deviation as well).
-    
+
     Note this can produce weird outcomes where a value is not available in some subset of the batches.
     """
     n_batches = len(run_metrics_list[0])
